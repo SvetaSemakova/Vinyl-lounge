@@ -47,8 +47,10 @@ public function add(Request $request)
 
 if ($request->hasFile('img')) {
     $file = $request->file('img');
-    $relativePath = 'img/artist/' . $file->getClientOriginalName();
-    $file->storeAs('public', $relativePath);
+    $filename = $file->getClientOriginalName();
+    $destinationPath = base_path('public_html/img/artist');
+    $file->move($destinationPath, $filename);
+    $relativePath = 'img/artist/' . $filename;
 } else {
     $relativePath = null;
 }
